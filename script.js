@@ -721,17 +721,16 @@ function renderDashboard() {
   const content = document.getElementById('dashboardContent');
   if (!content) return;
 
-  if (savedRoutines.length === 0 && savedProgress.length === 0) {
-    content.innerHTML = '<div class="text-center" style="color:var(--text3);padding:40px 0;">No tenés datos guardados aún. Empezá generando una rutina o registrando un entrenamiento.</div>';
-    return;
-  }
-
   let html = '';
 
   // 1. Records Personales (Top 5 desc)
+  html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">';
+  html += '<h3 style="font-size:18px;font-weight:700;margin:0;color:#F59E0B;">🏆 Records Personales</h3>';
+  html += '<button class="btn btn-secondary btn-sm" onclick="openManualRecordModal()" style="font-size:12px;padding:6px 12px;">+ Añadir</button>';
+  html += '</div>';
+
   if (savedRecords.length > 0) {
     const topRecords = [...savedRecords].sort((a, b) => b.peso_max - a.peso_max).slice(0, 5);
-    html += '<h3 style="font-size:18px;font-weight:700;margin:0 0 16px;color:#F59E0B;">🏆 Top 5 Records Personales</h3>';
     html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:32px;">';
     topRecords.forEach(r => {
       const ej = EJERCICIOS.find(e => e.id === r.ejercicio_id);
@@ -749,15 +748,22 @@ function renderDashboard() {
       </div>`;
     });
     html += '</div>';
+  } else {
+    html += '<div style="color:var(--text3);margin-bottom:32px;font-size:14px;">No tienes récords aún. ¡Añade tu primer récord manual o registra un progreso!</div>';
   }
 
   // 2. Historial de Entrenamientos
+  html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">';
+  html += '<div style="display:flex;align-items:center;gap:12px;">';
+  html += '<h3 style="font-size:18px;font-weight:700;margin:0;color:#FF6B35;">📊 Historial de Entrenamientos</h3>';
+  html += '<button class="btn btn-secondary btn-sm" onclick="openManualProgressModal()" style="font-size:12px;padding:6px 12px;">+ Añadir</button>';
+  html += '</div>';
   if (savedProgress.length > 0) {
-    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">';
-    html += '<h3 style="font-size:18px;font-weight:700;margin:0;color:#FF6B35;">📊 Historial de Entrenamientos</h3>';
     html += `<input type="text" placeholder="Filtrar ejercicio..." value="${historyFilter}" oninput="updateHistoryFilter(this.value)" style="padding:6px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--border);color:#fff;font-size:13px;width:160px;outline:none;">`;
-    html += '</div>';
+  }
+  html += '</div>';
 
+  if (savedProgress.length > 0) {
     let filteredProgress = savedProgress;
     if (historyFilter.trim() !== '') {
       const q = historyFilter.toLowerCase();
@@ -791,11 +797,13 @@ function renderDashboard() {
         html += '<div style="margin-bottom:32px;"></div>';
       }
     }
+  } else {
+    html += '<div style="color:var(--text3);margin-bottom:32px;font-size:14px;">No tienes progresos registrados aún.</div>';
   }
 
   // 3. Rutinas Guardadas
+  html += '<h3 style="font-size:18px;font-weight:700;margin:0 0 12px;color:#E94560;">📋 Mis Rutinas Guardadas</h3>';
   if (savedRoutines.length > 0) {
-    html += '<h3 style="font-size:18px;font-weight:700;margin:0 0 12px;color:#E94560;">📋 Mis Rutinas Guardadas</h3>';
     savedRoutines.forEach((r, idx) => {
       html += `<div style="background:#16213E;border:1px solid #2A2A4A;border-radius:12px;padding:16px;margin-bottom:12px;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -810,6 +818,8 @@ function renderDashboard() {
         </div>
       </div>`;
     });
+  } else {
+    html += '<div style="color:var(--text3);margin-bottom:32px;font-size:14px;">No tienes rutinas guardadas. Ve a la Encuesta para generar una.</div>';
   }
 
   content.innerHTML = html;
@@ -824,6 +834,97 @@ function updateHistoryFilter(val) {
 function loadMoreHistory() {
   historyLimit += 20;
   renderDashboard();
+}
+
+// ===== MANUAL ENTRY MODALS =====
+function getExerciseSelectHtml(id) {
+  let html = `<select id="${id}" style="width:100%;margin-bottom:12px;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:#fff;font-size:14px;">`;
+  [...EJERCICIOS].sort((a,b) => a.nombre.localeCompare(b.nombre)).forEach(e => {
+    html += `<option value="${e.id}">${e.nombre}</option>`;
+  });
+  html += `</select>`;
+  return html;
+}
+
+function showModal(title, bodyHtml, onConfirm) {
+  let overlay = document.getElementById('globalModalOverlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'globalModalOverlay';
+    overlay.className = 'modal-overlay';
+    document.body.appendChild(overlay);
+  }
+  
+  overlay.innerHTML = `
+    <div class="modal">
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;">${title}</h3>
+      <div style="margin-bottom:20px;text-align:left;">${bodyHtml}</div>
+      <div class="modal-btns">
+        <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+        <button class="btn btn-primary" id="modalConfirmBtn">Guardar</button>
+      </div>
+    </div>
+  `;
+  
+  overlay.classList.remove('hidden');
+  document.getElementById('modalConfirmBtn').onclick = () => {
+    if(onConfirm()) closeModal();
+  };
+}
+
+function closeModal() {
+  const overlay = document.getElementById('globalModalOverlay');
+  if (overlay) overlay.classList.add('hidden');
+}
+
+function openManualRecordModal() {
+  const body = `
+    <label style="font-size:13px;color:var(--text3);margin-bottom:4px;display:block;">Ejercicio</label>
+    ${getExerciseSelectHtml('manualRecordEj')}
+    <label style="font-size:13px;color:var(--text3);margin-bottom:4px;display:block;">Peso Máximo (kg)</label>
+    <input type="number" id="manualRecordPeso" placeholder="Ej: 80" style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:#fff;font-size:14px;outline:none;" min="1" step="0.5">
+  `;
+  showModal('🏆 Añadir Récord Personal', body, () => {
+    const ejId = parseInt(document.getElementById('manualRecordEj').value);
+    const peso = parseFloat(document.getElementById('manualRecordPeso').value);
+    if (!ejId || isNaN(peso) || peso <= 0) {
+      showToast('Ingresa un peso válido', 'error');
+      return false;
+    }
+    checkAndSavePR(ejId, peso);
+    saveToStorage();
+    showToast('Récord guardado');
+    if (currentPage === 'dashboard') renderDashboard();
+    return true;
+  });
+}
+
+function openManualProgressModal() {
+  const body = `
+    <label style="font-size:13px;color:var(--text3);margin-bottom:4px;display:block;">Ejercicio</label>
+    ${getExerciseSelectHtml('manualProgEj')}
+    <div style="display:flex;gap:12px;">
+      <div style="flex:1;">
+        <label style="font-size:13px;color:var(--text3);margin-bottom:4px;display:block;">Peso (kg)</label>
+        <input type="number" id="manualProgPeso" placeholder="Ej: 50" style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:#fff;font-size:14px;outline:none;" min="0" step="0.5">
+      </div>
+      <div style="flex:1;">
+        <label style="font-size:13px;color:var(--text3);margin-bottom:4px;display:block;">Reps</label>
+        <input type="number" id="manualProgReps" placeholder="Ej: 10" style="width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:#fff;font-size:14px;outline:none;" min="1" step="1">
+      </div>
+    </div>
+  `;
+  showModal('📊 Añadir Progreso', body, () => {
+    const ejId = parseInt(document.getElementById('manualProgEj').value);
+    const peso = parseFloat(document.getElementById('manualProgPeso').value);
+    const reps = parseInt(document.getElementById('manualProgReps').value);
+    if (!ejId || isNaN(peso) || peso < 0 || isNaN(reps) || reps <= 0) {
+      showToast('Ingresa datos válidos', 'error');
+      return false;
+    }
+    saveProgress(ejId, peso, reps);
+    return true;
+  });
 }
 
 function viewSavedRoutine(idx) {
