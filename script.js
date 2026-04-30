@@ -797,3 +797,46 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+
+// ===== PWA INSTALL BUTTON LOGIC =====
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevenir que Chrome muestre el prompt automáticamente
+  e.preventDefault();
+  // Guardar el evento para dispararlo más tarde
+  deferredPrompt = e;
+  
+  // Mostrar los botones
+  const btnDesktop = document.getElementById('btnInstallDesktop');
+  const btnMobile = document.getElementById('btnInstallMobile');
+  if (btnDesktop) btnDesktop.classList.remove('hidden');
+  if (btnMobile) btnMobile.classList.remove('hidden');
+});
+
+async function installPWA() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`Respuesta del usuario al prompt de instalación: ${outcome}`);
+    deferredPrompt = null;
+    
+    // Ocultar botones
+    const btnDesktop = document.getElementById('btnInstallDesktop');
+    const btnMobile = document.getElementById('btnInstallMobile');
+    if (btnDesktop) btnDesktop.classList.add('hidden');
+    if (btnMobile) btnMobile.classList.add('hidden');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btnDesktop = document.getElementById('btnInstallDesktop');
+  const btnMobile = document.getElementById('btnInstallMobile');
+  if (btnDesktop) btnDesktop.addEventListener('click', installPWA);
+  if (btnMobile) {
+    btnMobile.addEventListener('click', (e) => {
+      e.preventDefault();
+      installPWA();
+    });
+  }
+});
