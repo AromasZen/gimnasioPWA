@@ -4,57 +4,57 @@
 
 // ===== EXERCISE DATABASE (46 exercises) =====
 const EJERCICIOS = [
-  { id:1, nombre:'Press de Banca', grupo_muscular:'pecho', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:2, nombre:'Press Inclinado con Mancuernas', grupo_muscular:'pecho', nivel:'intermedio', tipo_objetivo:'hipertrofia' },
-  { id:3, nombre:'Aperturas con Mancuernas', grupo_muscular:'pecho', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:4, nombre:'Fondos en Paralelas', grupo_muscular:'pecho', nivel:'avanzado', tipo_objetivo:'fuerza' },
-  { id:5, nombre:'Crossover en Polea', grupo_muscular:'pecho', nivel:'intermedio', tipo_objetivo:'hipertrofia' },
-  { id:6, nombre:'Dominadas', grupo_muscular:'espalda', nivel:'intermedio', tipo_objetivo:'fuerza' },
-  { id:7, nombre:'Remo con Barra', grupo_muscular:'espalda', nivel:'intermedio', tipo_objetivo:'hipertrofia' },
-  { id:8, nombre:'Jalón al Pecho', grupo_muscular:'espalda', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:9, nombre:'Remo con Mancuerna', grupo_muscular:'espalda', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:10, nombre:'Peso Muerto', grupo_muscular:'espalda', nivel:'avanzado', tipo_objetivo:'fuerza' },
-  { id:11, nombre:'Sentadilla con Barra', grupo_muscular:'piernas', nivel:'intermedio', tipo_objetivo:'fuerza' },
-  { id:12, nombre:'Prensa de Piernas', grupo_muscular:'piernas', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:13, nombre:'Extensión de Cuádriceps', grupo_muscular:'piernas', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:14, nombre:'Curl de Isquiotibiales', grupo_muscular:'piernas', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:15, nombre:'Sentadilla Búlgara', grupo_muscular:'piernas', nivel:'avanzado', tipo_objetivo:'fuerza' },
-  { id:16, nombre:'Zancadas con Mancuernas', grupo_muscular:'piernas', nivel:'intermedio', tipo_objetivo:'hipertrofia' },
-  { id:17, nombre:'Elevación de Gemelos', grupo_muscular:'piernas', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:18, nombre:'Press Militar', grupo_muscular:'hombros', nivel:'intermedio', tipo_objetivo:'fuerza' },
-  { id:19, nombre:'Elevaciones Laterales', grupo_muscular:'hombros', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:20, nombre:'Elevaciones Frontales', grupo_muscular:'hombros', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:21, nombre:'Pájaros', grupo_muscular:'hombros', nivel:'intermedio', tipo_objetivo:'hipertrofia' },
-  { id:22, nombre:'Press Arnold', grupo_muscular:'hombros', nivel:'avanzado', tipo_objetivo:'hipertrofia' },
-  { id:23, nombre:'Curl de Bíceps con Barra', grupo_muscular:'brazos', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:24, nombre:'Curl Martillo', grupo_muscular:'brazos', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:25, nombre:'Curl Concentrado', grupo_muscular:'brazos', nivel:'intermedio', tipo_objetivo:'hipertrofia' },
-  { id:26, nombre:'Extensión de Tríceps en Polea', grupo_muscular:'brazos', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:27, nombre:'Press Francés', grupo_muscular:'brazos', nivel:'intermedio', tipo_objetivo:'hipertrofia' },
-  { id:28, nombre:'Fondos en Banco', grupo_muscular:'brazos', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:29, nombre:'Curl con Barra Z', grupo_muscular:'brazos', nivel:'intermedio', tipo_objetivo:'hipertrofia' },
-  { id:30, nombre:'Plancha', grupo_muscular:'core', nivel:'principiante', tipo_objetivo:'salud' },
-  { id:31, nombre:'Crunch Abdominal', grupo_muscular:'core', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:32, nombre:'Elevación de Piernas', grupo_muscular:'core', nivel:'intermedio', tipo_objetivo:'hipertrofia' },
-  { id:33, nombre:'Russian Twist', grupo_muscular:'core', nivel:'intermedio', tipo_objetivo:'salud' },
-  { id:34, nombre:'Ab Wheel', grupo_muscular:'core', nivel:'avanzado', tipo_objetivo:'fuerza' },
-  { id:35, nombre:'Cinta / Correr', grupo_muscular:'cardio', nivel:'principiante', tipo_objetivo:'bajar_grasa' },
-  { id:36, nombre:'Bicicleta Estática', grupo_muscular:'cardio', nivel:'principiante', tipo_objetivo:'bajar_grasa' },
-  { id:37, nombre:'Elíptica', grupo_muscular:'cardio', nivel:'principiante', tipo_objetivo:'salud' },
-  { id:38, nombre:'Remo Ergómetro', grupo_muscular:'cardio', nivel:'intermedio', tipo_objetivo:'bajar_grasa' },
-  { id:39, nombre:'Saltar la Soga', grupo_muscular:'cardio', nivel:'intermedio', tipo_objetivo:'bajar_grasa' },
-  { id:40, nombre:'HIIT Burpees', grupo_muscular:'cardio', nivel:'avanzado', tipo_objetivo:'bajar_grasa' },
-  { id:41, nombre:'Hip Thrust', grupo_muscular:'piernas', nivel:'intermedio', tipo_objetivo:'hipertrofia' },
-  { id:42, nombre:'Face Pull', grupo_muscular:'hombros', nivel:'principiante', tipo_objetivo:'salud' },
-  { id:43, nombre:'Pullover con Mancuerna', grupo_muscular:'pecho', nivel:'intermedio', tipo_objetivo:'hipertrofia' },
-  { id:44, nombre:'Encogimientos de Hombros', grupo_muscular:'espalda', nivel:'principiante', tipo_objetivo:'hipertrofia' },
-  { id:45, nombre:'Sentadilla Goblet', grupo_muscular:'piernas', nivel:'principiante', tipo_objetivo:'salud' },
-  { id:46, nombre:'Mountain Climbers', grupo_muscular:'cardio', nivel:'principiante', tipo_objetivo:'bajar_grasa' },
+  { id: 1, nombre: 'Press de Banca', grupo_muscular: 'pecho', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 2, nombre: 'Press Inclinado con Mancuernas', grupo_muscular: 'pecho', nivel: 'intermedio', tipo_objetivo: 'hipertrofia' },
+  { id: 3, nombre: 'Aperturas con Mancuernas', grupo_muscular: 'pecho', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 4, nombre: 'Fondos en Paralelas', grupo_muscular: 'pecho', nivel: 'avanzado', tipo_objetivo: 'fuerza' },
+  { id: 5, nombre: 'Crossover en Polea', grupo_muscular: 'pecho', nivel: 'intermedio', tipo_objetivo: 'hipertrofia' },
+  { id: 6, nombre: 'Dominadas', grupo_muscular: 'espalda', nivel: 'intermedio', tipo_objetivo: 'fuerza' },
+  { id: 7, nombre: 'Remo con Barra', grupo_muscular: 'espalda', nivel: 'intermedio', tipo_objetivo: 'hipertrofia' },
+  { id: 8, nombre: 'Jalón al Pecho', grupo_muscular: 'espalda', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 9, nombre: 'Remo con Mancuerna', grupo_muscular: 'espalda', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 10, nombre: 'Peso Muerto', grupo_muscular: 'espalda', nivel: 'avanzado', tipo_objetivo: 'fuerza' },
+  { id: 11, nombre: 'Sentadilla con Barra', grupo_muscular: 'piernas', nivel: 'intermedio', tipo_objetivo: 'fuerza' },
+  { id: 12, nombre: 'Prensa de Piernas', grupo_muscular: 'piernas', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 13, nombre: 'Extensión de Cuádriceps', grupo_muscular: 'piernas', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 14, nombre: 'Curl de Isquiotibiales', grupo_muscular: 'piernas', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 15, nombre: 'Sentadilla Búlgara', grupo_muscular: 'piernas', nivel: 'avanzado', tipo_objetivo: 'fuerza' },
+  { id: 16, nombre: 'Zancadas con Mancuernas', grupo_muscular: 'piernas', nivel: 'intermedio', tipo_objetivo: 'hipertrofia' },
+  { id: 17, nombre: 'Elevación de Gemelos', grupo_muscular: 'piernas', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 18, nombre: 'Press Militar', grupo_muscular: 'hombros', nivel: 'intermedio', tipo_objetivo: 'fuerza' },
+  { id: 19, nombre: 'Elevaciones Laterales', grupo_muscular: 'hombros', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 20, nombre: 'Elevaciones Frontales', grupo_muscular: 'hombros', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 21, nombre: 'Pájaros', grupo_muscular: 'hombros', nivel: 'intermedio', tipo_objetivo: 'hipertrofia' },
+  { id: 22, nombre: 'Press Arnold', grupo_muscular: 'hombros', nivel: 'avanzado', tipo_objetivo: 'hipertrofia' },
+  { id: 23, nombre: 'Curl de Bíceps con Barra', grupo_muscular: 'brazos', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 24, nombre: 'Curl Martillo', grupo_muscular: 'brazos', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 25, nombre: 'Curl Concentrado', grupo_muscular: 'brazos', nivel: 'intermedio', tipo_objetivo: 'hipertrofia' },
+  { id: 26, nombre: 'Extensión de Tríceps en Polea', grupo_muscular: 'brazos', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 27, nombre: 'Press Francés', grupo_muscular: 'brazos', nivel: 'intermedio', tipo_objetivo: 'hipertrofia' },
+  { id: 28, nombre: 'Fondos en Banco', grupo_muscular: 'brazos', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 29, nombre: 'Curl con Barra Z', grupo_muscular: 'brazos', nivel: 'intermedio', tipo_objetivo: 'hipertrofia' },
+  { id: 30, nombre: 'Plancha', grupo_muscular: 'core', nivel: 'principiante', tipo_objetivo: 'salud' },
+  { id: 31, nombre: 'Crunch Abdominal', grupo_muscular: 'core', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 32, nombre: 'Elevación de Piernas', grupo_muscular: 'core', nivel: 'intermedio', tipo_objetivo: 'hipertrofia' },
+  { id: 33, nombre: 'Russian Twist', grupo_muscular: 'core', nivel: 'intermedio', tipo_objetivo: 'salud' },
+  { id: 34, nombre: 'Ab Wheel', grupo_muscular: 'core', nivel: 'avanzado', tipo_objetivo: 'fuerza' },
+  { id: 35, nombre: 'Cinta / Correr', grupo_muscular: 'cardio', nivel: 'principiante', tipo_objetivo: 'bajar_grasa' },
+  { id: 36, nombre: 'Bicicleta Estática', grupo_muscular: 'cardio', nivel: 'principiante', tipo_objetivo: 'bajar_grasa' },
+  { id: 37, nombre: 'Elíptica', grupo_muscular: 'cardio', nivel: 'principiante', tipo_objetivo: 'salud' },
+  { id: 38, nombre: 'Remo Ergómetro', grupo_muscular: 'cardio', nivel: 'intermedio', tipo_objetivo: 'bajar_grasa' },
+  { id: 39, nombre: 'Saltar la Soga', grupo_muscular: 'cardio', nivel: 'intermedio', tipo_objetivo: 'bajar_grasa' },
+  { id: 40, nombre: 'HIIT Burpees', grupo_muscular: 'cardio', nivel: 'avanzado', tipo_objetivo: 'bajar_grasa' },
+  { id: 41, nombre: 'Hip Thrust', grupo_muscular: 'piernas', nivel: 'intermedio', tipo_objetivo: 'hipertrofia' },
+  { id: 42, nombre: 'Face Pull', grupo_muscular: 'hombros', nivel: 'principiante', tipo_objetivo: 'salud' },
+  { id: 43, nombre: 'Pullover con Mancuerna', grupo_muscular: 'pecho', nivel: 'intermedio', tipo_objetivo: 'hipertrofia' },
+  { id: 44, nombre: 'Encogimientos de Hombros', grupo_muscular: 'espalda', nivel: 'principiante', tipo_objetivo: 'hipertrofia' },
+  { id: 45, nombre: 'Sentadilla Goblet', grupo_muscular: 'piernas', nivel: 'principiante', tipo_objetivo: 'salud' },
+  { id: 46, nombre: 'Mountain Climbers', grupo_muscular: 'cardio', nivel: 'principiante', tipo_objetivo: 'bajar_grasa' },
 ];
 
-const DIA_LABELS = { 1:'Lunes', 2:'Martes', 3:'Miércoles', 4:'Jueves', 5:'Viernes', 6:'Sábado', 7:'Domingo' };
-const OBJ_LABELS = { hipertrofia:'Hipertrofia', bajar_grasa:'Bajar Grasa', fuerza:'Fuerza', salud:'Salud General' };
-const ZONAS = ['pecho','espalda','piernas','hombros','brazos','core','cardio'];
+const DIA_LABELS = { 1: 'Lunes', 2: 'Martes', 3: 'Miércoles', 4: 'Jueves', 5: 'Viernes', 6: 'Sábado', 7: 'Domingo' };
+const OBJ_LABELS = { hipertrofia: 'Hipertrofia', bajar_grasa: 'Bajar Grasa', fuerza: 'Fuerza', salud: 'Salud General' };
+const ZONAS = ['pecho', 'espalda', 'piernas', 'hombros', 'brazos', 'core', 'cardio'];
 
 // ===== STATE =====
 let currentPage = 'home';
@@ -152,9 +152,9 @@ function renderSurvey() {
     `;
   } else if (surveyStep === 1) {
     const exps = [
-      { value:'principiante', label:'Principiante', desc:'Menos de 6 meses', emoji:'🌱' },
-      { value:'intermedio', label:'Intermedio', desc:'6 meses a 2 años', emoji:'💪' },
-      { value:'avanzado', label:'Avanzado', desc:'Más de 2 años', emoji:'🔥' },
+      { value: 'principiante', label: 'Principiante', desc: 'Menos de 6 meses', emoji: '🌱' },
+      { value: 'intermedio', label: 'Intermedio', desc: '6 meses a 2 años', emoji: '💪' },
+      { value: 'avanzado', label: 'Avanzado', desc: 'Más de 2 años', emoji: '🔥' },
     ];
     html += '<h2><span class="icon">🎯</span> ¿Cuál es tu experiencia?</h2>';
     html += '<div class="option-grid">';
@@ -167,10 +167,10 @@ function renderSurvey() {
     html += '</div>';
   } else if (surveyStep === 2) {
     const objs = [
-      { value:'hipertrofia', label:'Hipertrofia', desc:'Ganar masa muscular', icon:'🏋️' },
-      { value:'bajar_grasa', label:'Bajar Grasa', desc:'Perder peso y definir', icon:'🔥' },
-      { value:'fuerza', label:'Fuerza', desc:'Aumentar fuerza máxima', icon:'🛡️' },
-      { value:'salud', label:'Salud General', desc:'Mejorar bienestar', icon:'❤️' },
+      { value: 'hipertrofia', label: 'Hipertrofia', desc: 'Ganar masa muscular', icon: '🏋️' },
+      { value: 'bajar_grasa', label: 'Bajar Grasa', desc: 'Perder peso y definir', icon: '🔥' },
+      { value: 'fuerza', label: 'Fuerza', desc: 'Aumentar fuerza máxima', icon: '🛡️' },
+      { value: 'salud', label: 'Salud General', desc: 'Mejorar bienestar', icon: '❤️' },
     ];
     html += '<h2><span class="icon">🎯</span> ¿Cuál es tu objetivo?</h2>';
     html += '<div class="option-grid cols-2">';
@@ -463,7 +463,7 @@ function submitProgress(ej_id) {
   }
 
   saveProgress(ej_id, peso, reps);
-  
+
   pesoEl.value = '';
   repsEl.value = '';
   toggleProgressForm(ej_id);
@@ -482,7 +482,7 @@ function saveProgress(ejercicio_id, peso, reps) {
 
   saveToStorage();
   showToast('Progreso guardado correctamente');
-  
+
   if (currentPage === 'dashboard') {
     renderDashboard();
   }
@@ -512,10 +512,10 @@ function renderCalculator() {
 
   // Tabs
   const tabs = [
-    { key:'imc', label:'IMC', icon:'⚖️' },
-    { key:'calorias', label:'Calorías', icon:'🔥' },
-    { key:'peso_ideal', label:'Peso Ideal', icon:'🧮' },
-    { key:'1rm', label:'1RM', icon:'🏋️' },
+    { key: 'imc', label: 'IMC', icon: '⚖️' },
+    { key: 'calorias', label: 'Calorías', icon: '🔥' },
+    { key: 'peso_ideal', label: 'Peso Ideal', icon: '🧮' },
+    { key: '1rm', label: '1RM', icon: '🏋️' },
   ];
   html += '<div class="calc-tabs">';
   tabs.forEach(t => {
@@ -646,7 +646,7 @@ function calcIMC() {
     <div class="result-box">
       <div class="result-big" style="color:${color}">${val}</div>
       <div class="result-label" style="color:${color}">${category}</div>
-      <div class="result-bar"><div class="result-bar-fill" style="width:${Math.min((val/40)*100,100)}%;background:${color}"></div></div>
+      <div class="result-bar"><div class="result-bar-fill" style="width:${Math.min((val / 40) * 100, 100)}%;background:${color}"></div></div>
     </div>`;
 }
 
@@ -689,9 +689,9 @@ function calcPesoIdeal() {
   }
   document.getElementById('piResult').innerHTML = `
     <div class="result-grid cols-3" style="margin-top:24px">
-      <div class="result-item"><div class="val" style="color:#E94560">${(Math.round(devine*10)/10)}</div><div class="lbl">Devine (kg)</div></div>
-      <div class="result-item"><div class="val" style="color:#FF6B35">${(Math.round(robinson*10)/10)}</div><div class="lbl">Robinson (kg)</div></div>
-      <div class="result-item"><div class="val" style="color:#10B981">${(Math.round(miller*10)/10)}</div><div class="lbl">Miller (kg)</div></div>
+      <div class="result-item"><div class="val" style="color:#E94560">${(Math.round(devine * 10) / 10)}</div><div class="lbl">Devine (kg)</div></div>
+      <div class="result-item"><div class="val" style="color:#FF6B35">${(Math.round(robinson * 10) / 10)}</div><div class="lbl">Robinson (kg)</div></div>
+      <div class="result-item"><div class="val" style="color:#10B981">${(Math.round(miller * 10) / 10)}</div><div class="lbl">Miller (kg)</div></div>
     </div>`;
 }
 
@@ -790,7 +790,7 @@ function renderDashboard() {
           </div>
         </div>`;
       });
-      
+
       if (filteredProgress.length > historyLimit) {
         html += `<button class="btn btn-secondary btn-full" style="margin-bottom:32px;font-size:13px;margin-top:8px;" onclick="loadMoreHistory()">Ver más historial</button>`;
       } else {
@@ -839,7 +839,7 @@ function loadMoreHistory() {
 // ===== MANUAL ENTRY MODALS =====
 function getExerciseSelectHtml(id) {
   let html = `<select id="${id}" style="width:100%;margin-bottom:12px;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:#fff;font-size:14px;">`;
-  [...EJERCICIOS].sort((a,b) => a.nombre.localeCompare(b.nombre)).forEach(e => {
+  [...EJERCICIOS].sort((a, b) => a.nombre.localeCompare(b.nombre)).forEach(e => {
     html += `<option value="${e.id}">${e.nombre}</option>`;
   });
   html += `</select>`;
@@ -854,7 +854,7 @@ function showModal(title, bodyHtml, onConfirm) {
     overlay.className = 'modal-overlay';
     document.body.appendChild(overlay);
   }
-  
+
   overlay.innerHTML = `
     <div class="modal">
       <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;">${title}</h3>
@@ -865,10 +865,10 @@ function showModal(title, bodyHtml, onConfirm) {
       </div>
     </div>
   `;
-  
+
   overlay.classList.remove('hidden');
   document.getElementById('modalConfirmBtn').onclick = () => {
-    if(onConfirm()) closeModal();
+    if (onConfirm()) closeModal();
   };
 }
 
@@ -1023,7 +1023,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   // Guardar el evento para dispararlo más tarde
   deferredPrompt = e;
-  
+
   // Mostrar los botones
   const btnDesktop = document.getElementById('btnInstallDesktop');
   const btnMobile = document.getElementById('btnInstallMobile');
@@ -1037,7 +1037,7 @@ async function installPWA() {
     const { outcome } = await deferredPrompt.userChoice;
     console.log(`Respuesta del usuario al prompt de instalación: ${outcome}`);
     deferredPrompt = null;
-    
+
     // Ocultar botones
     const btnDesktop = document.getElementById('btnInstallDesktop');
     const btnMobile = document.getElementById('btnInstallMobile');
