@@ -295,11 +295,22 @@ img { max-width: 100%; display: block; }
 .day-tab:hover { border-color: rgba(233,69,96,0.5); }
 .day-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 .exercise-list { display: flex; flex-direction: column; gap: 12px; }
-.exercise-item {
+.exercise-wrapper {
   background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-  padding: 16px; display: flex; align-items: center; gap: 16px; transition: all 0.3s;
+  transition: all 0.3s; margin-bottom: 12px; overflow: hidden;
 }
-.exercise-item:hover { border-color: rgba(233,69,96,0.3); }
+.exercise-wrapper:hover { border-color: rgba(233,69,96,0.3); }
+.exercise-item {
+  padding: 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.exercise-actions { margin-left: auto; display: flex; gap: 8px; flex-shrink: 0; }
+.exercise-form {
+  border-top: 1px solid var(--border); padding: 16px; display: flex; gap: 12px;
+  background: rgba(10,10,10,0.3); align-items: center; flex-wrap: wrap;
+}
+.exercise-form input { min-width: 80px; flex: 1; padding: 10px 14px; border-radius: 8px; background: var(--bg); border: 1px solid var(--border); color: #fff; font-size: 14px; outline: none; }
+.exercise-form input:focus { border-color: var(--accent); }
+.exercise-form button { flex-shrink: 0; white-space: nowrap; }
 .exercise-num {
   width: 40px; height: 40px; border-radius: 8px;
   background: rgba(233,69,96,0.2); color: var(--accent);
