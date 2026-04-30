@@ -2,7 +2,7 @@
   "name": "FitGym PWA",
   "short_name": "FitGym",
   "description": "Tu Gimnasio Digital PWA",
-  "start_url": "./index.html",
+  "start_url": "https://gimnasio-pwa.vercel.app",
   "display": "standalone",
   "background_color": "#0A0A0A",
   "theme_color": "#E94560",
