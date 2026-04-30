@@ -380,15 +380,25 @@ function renderRoutineResult() {
     html += '<div class="text-center" style="padding:48px 0;color:#6B7280;">No hay ejercicios para este día</div>';
   } else {
     ejerciciosDia.forEach(ej => {
-      html += `<div class="exercise-item">
-        <div class="exercise-num">${ej.orden}</div>
-        <div class="exercise-info">
-          <div class="exercise-name">${ej.nombre}</div>
-          <div class="exercise-muscle">${ej.grupo_muscular}</div>
+      html += `<div class="exercise-wrapper">
+        <div class="exercise-item">
+          <div class="exercise-num">${ej.orden}</div>
+          <div class="exercise-info">
+            <div class="exercise-name">${ej.nombre}</div>
+            <div class="exercise-muscle">${ej.grupo_muscular}</div>
+          </div>
+          <div class="exercise-sets">
+            <div class="main">${ej.series} x ${ej.reps}</div>
+            <div class="sub">series x reps</div>
+          </div>
+          <div class="exercise-actions">
+            <button class="btn btn-secondary btn-sm" onclick="toggleProgressForm(${ej.id})" style="padding:6px 12px; font-size:12px;">📝 Registrar</button>
+          </div>
         </div>
-        <div class="exercise-sets">
-          <div class="main">${ej.series} x ${ej.reps}</div>
-          <div class="sub">series x reps</div>
+        <div id="form-progress-${ej.id}" class="exercise-form hidden">
+          <input type="number" id="peso-${ej.id}" placeholder="Peso (kg)" min="0" step="0.5" />
+          <input type="number" id="reps-${ej.id}" placeholder="Reps" min="1" step="1" />
+          <button class="btn btn-primary btn-sm" onclick="submitProgress(${ej.id})">Guardar</button>
         </div>
       </div>`;
     });
@@ -431,6 +441,65 @@ function downloadRoutine() {
   a.click();
   URL.revokeObjectURL(url);
   showToast('Rutina descargada');
+}
+
+// ===== PROGRESS & PR LOGIC =====
+function toggleProgressForm(id) {
+  const form = document.getElementById(`form-progress-${id}`);
+  if (form) form.classList.toggle('hidden');
+}
+
+function submitProgress(ej_id) {
+  const pesoEl = document.getElementById(`peso-${ej_id}`);
+  const repsEl = document.getElementById(`reps-${ej_id}`);
+  if (!pesoEl || !repsEl) return;
+
+  const peso = parseFloat(pesoEl.value);
+  const reps = parseInt(repsEl.value);
+
+  if (isNaN(peso) || peso <= 0 || isNaN(reps) || reps <= 0) {
+    showToast('Ingresá un peso y repeticiones válidos', 'error');
+    return;
+  }
+
+  saveProgress(ej_id, peso, reps);
+  
+  pesoEl.value = '';
+  repsEl.value = '';
+  toggleProgressForm(ej_id);
+}
+
+function saveProgress(ejercicio_id, peso, reps) {
+  const record = {
+    ejercicio_id,
+    peso,
+    reps,
+    fecha: new Date().toLocaleDateString()
+  };
+  savedProgress.unshift(record);
+
+  checkAndSavePR(ejercicio_id, peso);
+
+  saveToStorage();
+  showToast('Progreso guardado correctamente');
+  
+  if (currentPage === 'dashboard') {
+    renderDashboard();
+  }
+}
+
+function checkAndSavePR(ejercicio_id, peso) {
+  const existing = savedRecords.find(r => r.ejercicio_id === ejercicio_id);
+  if (!existing) {
+    savedRecords.push({
+      ejercicio_id,
+      peso_max: peso,
+      fecha: new Date().toLocaleDateString()
+    });
+  } else if (peso > existing.peso_max) {
+    existing.peso_max = peso;
+    existing.fecha = new Date().toLocaleDateString();
+  }
 }
 
 // ===== CALCULATOR =====
@@ -645,55 +714,26 @@ function calcOneRM() {
 }
 
 // ===== DASHBOARD =====
+let historyLimit = 20;
+let historyFilter = '';
+
 function renderDashboard() {
   const content = document.getElementById('dashboardContent');
   if (!content) return;
 
   if (savedRoutines.length === 0 && savedProgress.length === 0) {
-    content.innerHTML = '';
+    content.innerHTML = '<div class="text-center" style="color:var(--text3);padding:40px 0;">No tenés datos guardados aún. Empezá generando una rutina o registrando un entrenamiento.</div>';
     return;
   }
 
   let html = '';
 
-  // Show saved routines
-  if (savedRoutines.length > 0) {
-    html += '<h3 style="font-size:18px;font-weight:700;margin-bottom:12px;color:#E94560;">📋 Mis Rutinas Guardadas</h3>';
-    savedRoutines.forEach((r, idx) => {
-      html += `<div style="background:#16213E;border:1px solid #2A2A4A;border-radius:12px;padding:16px;margin-bottom:12px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div>
-            <div style="font-weight:700;font-size:14px;">${r.nombre}</div>
-            <div style="color:#6B7280;font-size:12px;">${r.nivel} · ${r.dias} días · ${new Date(r.created_at).toLocaleDateString()}</div>
-          </div>
-          <button class="btn btn-primary btn-sm" onclick="viewSavedRoutine(${idx})" style="padding:8px 16px;font-size:12px;">Ver</button>
-        </div>
-      </div>`;
-    });
-  }
-
-  // Show progress
-  if (savedProgress.length > 0) {
-    html += '<h3 style="font-size:18px;font-weight:700;margin:24px 0 12px;color:#FF6B35;">📈 Mi Progreso</h3>';
-    savedProgress.slice(0, 10).forEach(p => {
-      const ej = EJERCICIOS.find(e => e.id === p.ejercicio_id);
-      html += `<div style="background:#16213E;border:1px solid #2A2A4A;border-radius:12px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
-        <div>
-          <div style="font-weight:700;font-size:14px;">${ej ? ej.nombre : 'Ejercicio #' + p.ejercicio_id}</div>
-          <div style="color:#6B7280;font-size:12px;">${p.fecha}</div>
-        </div>
-        <div style="text-align:right;">
-          <div style="color:#E94560;font-weight:700;">${p.peso} kg x ${p.reps}</div>
-        </div>
-      </div>`;
-    });
-  }
-
-  // Show records
+  // 1. Records Personales (Top 5 desc)
   if (savedRecords.length > 0) {
-    html += '<h3 style="font-size:18px;font-weight:700;margin:24px 0 12px;color:#F59E0B;">🏆 Records Personales</h3>';
-    html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">';
-    savedRecords.forEach(r => {
+    const topRecords = [...savedRecords].sort((a, b) => b.peso_max - a.peso_max).slice(0, 5);
+    html += '<h3 style="font-size:18px;font-weight:700;margin:0 0 16px;color:#F59E0B;">🏆 Top 5 Records Personales</h3>';
+    html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:32px;">';
+    topRecords.forEach(r => {
       const ej = EJERCICIOS.find(e => e.id === r.ejercicio_id);
       html += `<div style="background:#16213E;border:1px solid #2A2A4A;border-radius:12px;padding:16px;">
         <div style="display:flex;align-items:center;gap:12px;">
@@ -711,7 +751,79 @@ function renderDashboard() {
     html += '</div>';
   }
 
+  // 2. Historial de Entrenamientos
+  if (savedProgress.length > 0) {
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">';
+    html += '<h3 style="font-size:18px;font-weight:700;margin:0;color:#FF6B35;">📊 Historial de Entrenamientos</h3>';
+    html += `<input type="text" placeholder="Filtrar ejercicio..." value="${historyFilter}" oninput="updateHistoryFilter(this.value)" style="padding:6px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--border);color:#fff;font-size:13px;width:160px;outline:none;">`;
+    html += '</div>';
+
+    let filteredProgress = savedProgress;
+    if (historyFilter.trim() !== '') {
+      const q = historyFilter.toLowerCase();
+      filteredProgress = savedProgress.filter(p => {
+        const ej = EJERCICIOS.find(e => e.id === p.ejercicio_id);
+        return ej && ej.nombre.toLowerCase().includes(q);
+      });
+    }
+
+    const limitedProgress = filteredProgress.slice(0, historyLimit);
+
+    if (limitedProgress.length === 0) {
+      html += '<div style="color:var(--text3);margin-bottom:32px;font-size:14px;">No se encontraron progresos para este filtro.</div>';
+    } else {
+      limitedProgress.forEach(p => {
+        const ej = EJERCICIOS.find(e => e.id === p.ejercicio_id);
+        html += `<div style="background:#16213E;border:1px solid #2A2A4A;border-radius:12px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-weight:700;font-size:14px;">${ej ? ej.nombre : 'Ejercicio #' + p.ejercicio_id}</div>
+            <div style="color:#6B7280;font-size:12px;">${p.fecha}</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="color:#E94560;font-weight:700;font-size:16px;">${p.peso} kg <span style="color:#6B7280;font-size:13px;font-weight:400;">x ${p.reps}</span></div>
+          </div>
+        </div>`;
+      });
+      
+      if (filteredProgress.length > historyLimit) {
+        html += `<button class="btn btn-secondary btn-full" style="margin-bottom:32px;font-size:13px;margin-top:8px;" onclick="loadMoreHistory()">Ver más historial</button>`;
+      } else {
+        html += '<div style="margin-bottom:32px;"></div>';
+      }
+    }
+  }
+
+  // 3. Rutinas Guardadas
+  if (savedRoutines.length > 0) {
+    html += '<h3 style="font-size:18px;font-weight:700;margin:0 0 12px;color:#E94560;">📋 Mis Rutinas Guardadas</h3>';
+    savedRoutines.forEach((r, idx) => {
+      html += `<div style="background:#16213E;border:1px solid #2A2A4A;border-radius:12px;padding:16px;margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-weight:700;font-size:14px;">${r.nombre}</div>
+            <div style="color:#6B7280;font-size:12px;text-transform:capitalize;">${r.nivel} · ${r.dias} días · ${new Date(r.created_at).toLocaleDateString()}</div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-secondary btn-sm" onclick="viewSavedRoutine(${idx})" style="padding:6px 12px;font-size:12px;">Ver</button>
+            <button style="padding:6px 12px;border-radius:8px;background:rgba(239,68,68,0.1);color:#EF4444;font-size:12px;font-weight:600;border:none;cursor:pointer;" onclick="deleteRoutine(${idx})">🗑️</button>
+          </div>
+        </div>
+      </div>`;
+    });
+  }
+
   content.innerHTML = html;
+}
+
+function updateHistoryFilter(val) {
+  historyFilter = val;
+  historyLimit = 20;
+  renderDashboard();
+}
+
+function loadMoreHistory() {
+  historyLimit += 20;
+  renderDashboard();
 }
 
 function viewSavedRoutine(idx) {
@@ -777,7 +889,11 @@ function deleteRoutine(idx) {
   if (confirm('¿Eliminar esta rutina?')) {
     savedRoutines.splice(idx, 1);
     saveToStorage();
-    renderTrainer();
+    if (currentPage === 'dashboard') {
+      renderDashboard();
+    } else {
+      renderTrainer();
+    }
     showToast('Rutina eliminada');
   }
 }
