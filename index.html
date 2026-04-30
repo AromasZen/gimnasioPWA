@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitGym - Tu Gimnasio Digital</title>
+  <meta name="description"
+    content="Plataforma digital para gimnasios. Generá rutinas personalizadas, gestioná alumnos y usá calculadoras fitness." />
+  <link rel="icon" type="image/x-icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon_atoms.ico" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0A0A0A" />
+  <link rel="apple-touch-icon" href="img/icon-192.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-logo" onclick="navigate('home')">
+      🏋️ FIT<span>GYM</span>
+    </div>
+    <nav class="header-nav" id="desktopNav">
+      <a href="#" data-page="home">Inicio</a>
+      <a href="#" data-page="encuesta">Encuesta</a>
+      <a href="#" data-page="calculadora">Calculadora</a>
+      <a href="#" data-page="dashboard">Mi Panel</a>
+      <a href="#" data-page="entrenador">Entrenador</a>
+    </nav>
+    <button class="header-menu-btn" onclick="toggleMobileNav()">☰</button>
+  </header>
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="#" data-page="home">Inicio</a>
+    <a href="#" data-page="encuesta">Encuesta</a>
+    <a href="#" data-page="calculadora">Calculadora</a>
+    <a href="#" data-page="dashboard">Mi Panel</a>
+    <a href="#" data-page="entrenador">Entrenador</a>
+  </nav>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ===== PAGE: HOME ===== -->
+  <div class="page" id="page-home">
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Transformá tu <span class="accent">cuerpo hoy</span></h1>
+        <p>Obtené tu rutina personalizada en segundos. Respondé una encuesta rápida y empezá a entrenar como un
+          profesional.</p>
+        <div class="hero-btns">
+          <a href="https://wa.me/5492914425849?text=Hola%21%20Me%20gustar%C3%ADa%20probar%20una%20clase%20en%20el%20gimnasio" target="_blank" class="btn btn-primary">Probar clase</a>
+          <button class="btn btn-secondary" onclick="navigate('encuesta')">Empezar Encuesta ›</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-value">100+</div>
+          <div class="stat-label">Ejercicios</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-value">20+</div>
+          <div class="stat-label">Objetivos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">📈</div>
+          <div class="stat-value">∞</div>
+          <div class="stat-label">Rutinas posibles</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="features-inner">
+        <h2 class="section-title">Todo lo que <span class="accent">necesitás</span></h2>
+        <p class="section-subtitle">Herramientas profesionales para tu gimnasio. Generá leads, fidelizá alumnos y dá un
+          servicio premium.</p>
+        <div class="features-grid">
+          <div class="feature-card" onclick="navigate('encuesta')">
+            <div class="feature-icon" style="background:rgba(233,69,96,0.15);color:#E94560;">📋</div>
+            <h3>Encuesta Fitness</h3>
+            <p>Respondé unas preguntas y obtené tu rutina personalizada al instante.</p>
+          </div>
+          <div class="feature-card" onclick="navigate('calculadora')">
+            <div class="feature-icon" style="background:rgba(16,185,129,0.15);color:#10B981;">🧮</div>
+            <h3>Calculadora Fitness</h3>
+            <p>Calculá tu IMC, calorías diarias, peso ideal y tu 1RM.</p>
+          </div>
+          <div class="feature-card" onclick="navigate('entrenador')">
+            <div class="feature-icon" style="background:rgba(139,92,246,0.15);color:#8B5CF6;">🏋️</div>
+            <h3>Panel Entrenador</h3>
+            <p>Creá y asigná rutinas a tus alumnos. Seguí su progreso.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <div class="gallery-inner">
+        <h2 class="section-title">Entrenamiento <span class="orange">profesional</span></h2>
+        <div class="gallery-grid" style="margin-top:48px;">
+          <div class="gallery-item">
+            <img src="img/entrenamiento.jpg" alt="Entrenamiento" />
+          </div>
+          <div class="gallery-item">
+            <img src="img/equipamiento.jpg" alt="Equipamiento" />
+          </div>
+          <div class="gallery-item">
+            <img src="img/entrenador.jpg" alt="Entrenador" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRICING ===== -->
+    <section class="pricing" id="precios">
+      <div class="pricing-inner">
+        <h2 class="section-title">Nuestros <span class="accent">Planes</span></h2>
+        <p class="section-subtitle">Elegí el plan que mejor se adapte a tus objetivos. Cancelá cuando quieras.</p>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3>Pase Básico</h3>
+            <div class="price"><span>$</span>15.000<span class="period">/mes</span></div>
+            <ul class="features-list">
+              <li><span class="check">✔</span> Acceso a sala de musculación</li>
+              <li><span class="check">✔</span> Horarios: 08:00 a 16:00</li>
+              <li class="disabled"><span class="cross">✕</span> Clases grupales</li>
+              <li class="disabled"><span class="cross">✕</span> Rutina personalizada</li>
+            </ul>
+            <a href="https://wa.me/5492914425849?text=Hola%2C%20quiero%20inscribirme%20al%20Pase%20B%C3%A1sico" target="_blank" class="btn btn-secondary btn-full">Inscribirme</a>
+          </div>
+          <div class="pricing-card popular">
+            <div class="popular-badge">Más Elegido</div>
+            <h3>Pase Libre</h3>
+            <div class="price"><span>$</span>20.000<span class="period">/mes</span></div>
+            <ul class="features-list">
+              <li><span class="check">✔</span> Acceso libre en todo horario</li>
+              <li><span class="check">✔</span> Rutina personalizada inicial</li>
+              <li><span class="check">✔</span> Clases grupales incluidas</li>
+              <li class="disabled"><span class="cross">✕</span> Seguimiento nutricional</li>
+            </ul>
+            <a href="https://wa.me/5492914425849?text=Hola%2C%20quiero%20inscribirme%20al%20Pase%20Libre" target="_blank" class="btn btn-primary btn-full">Inscribirme</a>
+          </div>
+          <div class="pricing-card">
+            <h3>Pase Premium</h3>
+            <div class="price"><span>$</span>30.000<span class="period">/mes</span></div>
+            <ul class="features-list">
+              <li><span class="check">✔</span> Acceso libre en todo horario</li>
+              <li><span class="check">✔</span> Rutina y ajustes semanales</li>
+              <li><span class="check">✔</span> Seguimiento nutricional</li>
+              <li><span class="check">✔</span> Toalla y locker personal</li>
+            </ul>
+            <a href="https://wa.me/5492914425849?text=Hola%2C%20quiero%20inscribirme%20al%20Pase%20Premium" target="_blank" class="btn btn-secondary btn-full">Inscribirme</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LOCATION & SCHEDULE ===== -->
+    <section class="location" id="ubicacion">
+      <div class="location-inner">
+        <h2 class="section-title">Dónde <span class="orange">Encontrarnos</span></h2>
+        <p class="section-subtitle">Vení a conocer nuestras instalaciones. ¡Te esperamos en nuestro gimnasio!</p>
+        <div class="location-grid">
+          <div class="location-info">
+            <div class="info-block">
+              <div class="info-icon">📍</div>
+              <div>
+                <h4>Ubicación</h4>
+                <p>Av. Siempreviva 123<br>Springfield, Argentina</p>
+              </div>
+            </div>
+            <div class="info-block">
+              <div class="info-icon">🕒</div>
+              <div>
+                <h4>Horarios de Atención</h4>
+                <p><strong>Lunes a Viernes:</strong> 06:00 - 23:00</p>
+                <p><strong>Sábados:</strong> 08:00 - 20:00</p>
+                <p><strong>Domingos:</strong> 09:00 - 13:00</p>
+              </div>
+            </div>
+            <div class="info-block">
+              <div class="info-icon">📞</div>
+              <div>
+                <h4>Contacto</h4>
+                <p>+54 9 11 1234-5678</p>
+                <p>info@fitgym.com.ar</p>
+              </div>
+            </div>
+          </div>
+          <div class="location-map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0168878894506!2d-58.3815704!3d-34.6037389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4aa9f0a6da5edb%3A0x11beebf1c34c6628!2sObelisco!5e0!3m2!1ses-419!2sar!4v1700000000000!5m2!1ses-419!2sar"
+              width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <h2 class="section-title">¿Listo para <span class="accent">empezar</span>?</h2>
+      <p style="color:#6B7280;margin-bottom:32px;">No importa si sos principiante o avanzado. Nuestro sistema genera la
+        rutina perfecta para vos.</p>
+      <button class="btn btn-primary" onclick="navigate('encuesta')">Crear Mi Rutina ›</button>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-logo">🏋️ FIT<span>GYM</span></div>
+        <p class="footer-copy">© 2026 FitGym. Todos los derechos reservados.</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ===== PAGE: ENCUESTA ===== -->
+  <div class="page" id="page-encuesta">
+    <div class="survey-container" id="surveyContainer"></div>
+  </div>
+
+  <!-- ===== PAGE: RUTINA RESULTADO ===== -->
+  <div class="page" id="page-rutina">
+    <div class="routine-container" id="routineContainer"></div>
+  </div>
+
+  <!-- ===== PAGE: CALCULADORA ===== -->
+  <div class="page" id="page-calculadora">
+    <div class="calc-container" id="calcContainer"></div>
+  </div>
+
+  <!-- ===== PAGE: DASHBOARD ===== -->
+  <div class="page" id="page-dashboard">
+    <div class="info-page">
+      <div class="icon">🏋️</div>
+      <h2>Panel de Alumno</h2>
+      <p>Accedé a tu rutina personalizada, registrá tu progreso diario y consultá tus records personales. Primero
+        completá la encuesta para generar tu rutina.</p>
+      <button class="btn btn-primary" onclick="navigate('encuesta')">Completar Encuesta</button>
+      <div id="dashboardContent" style="max-width:800px;margin:32px auto 0;text-align:left;"></div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE: ENTRENADOR ===== -->
+  <div class="page" id="page-entrenador">
+    <div class="info-page">
+      <div class="icon">👥</div>
+      <h2>Panel de Entrenador</h2>
+      <p>Creá rutinas personalizadas para tus alumnos, asigná ejercicios por día y seguí su progreso. Usá la encuesta
+        para generar rutinas automáticas.</p>
+      <button class="btn btn-primary" onclick="navigate('encuesta')">Generar Rutina</button>
+      <div id="trainerContent" style="max-width:800px;margin:32px auto 0;text-align:left;"></div>
+    </div>
+  </div>
+  <a href="https://wa.me/5492914425849" target="_blank" class="btn-whatsapp-floating" aria-label="Chat en WhatsApp">
+    <svg width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+    </svg>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
